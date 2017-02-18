@@ -18,8 +18,17 @@
   tags:
     - sonar
 
-- name: 'unzip sonar-runner'
-  command: unzip -o  /tmp/{{sonarrunner_zipfile}} -d {{ sonar_home }}/{{ sonar_name }}/runner creates={{ sonar_home }}/{{ sonar_name }}/runner/sonar-runner-2.4
+#- name: 'unzip sonar-runner'
+#  command: unzip -o /tmp/{{sonarrunner_zipfile}} -d {{ sonar_home }}/{{ sonar_name }}/runner creates={{ sonar_home }}/{{ sonar_name }}/runner/sonar-runner-2.4
+#  when: not jarfile.stat.exists
+#  tags:
+#    - sonar
+
+- name: 'unarchive sonar-runner'
+  unarchive:
+    src: "/tmp/{{ sonarrunner_zipfile }}"
+    dest: "{{ sonar_home }}/{{ sonar_name }}/runner"
+    creates: "{{ sonar_home }}/{{ sonar_name }}/runner/sonar-runner-2.4"
   when: not jarfile.stat.exists
   tags:
     - sonar
