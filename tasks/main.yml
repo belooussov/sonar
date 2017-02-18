@@ -5,11 +5,12 @@
   become: yes
   become_method: sudo
   handlers:
+  vars:
     - include: ../handlers/main.yml
-  tasks:
     # get vars
     - include_vars: ../defaults/main.yml
     - include_vars: ../vars/main.yml
+  tasks:
 
     # Install dependencies
     - include: dependencies.yml
